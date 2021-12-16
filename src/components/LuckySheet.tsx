@@ -19,10 +19,10 @@ export class LuckySheet extends React.Component<Props> {
   }
 
   render () {
-    const {options, style} = this.props
-    const {container: id} = options
+    const { options, style } = this.props
+    const { container: id } = options
 
-    return true ? null : (
+    return (
       <div
         id={id}
         style={style}

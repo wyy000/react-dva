@@ -20,7 +20,7 @@ function RouterConfig({ app, history }) {
   const Exeal = dynamic({
     app,
     models: () => [
-      // import('./models/exeal'),
+      import('./models/excel'),
     ],
     component: () => import('./pages/Exeal/index'),
   })

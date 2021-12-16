@@ -2,6 +2,7 @@ import createLoading from 'dva-loading'
 import ReactDom from 'react-dom'
 import dva from 'dva'
 
+import 'antd/dist/antd.css'
 import './index.css'
 
 // 1. Initialize

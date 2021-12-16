@@ -1,11 +1,9 @@
-import {query} from "../services/example"
-
 export default {
 
-  namespace: 'example',
+  namespace: 'excel',
 
   state: {
-    stream: null,
+    streamCache: {},
   },
 
   subscriptions: {
@@ -15,8 +13,10 @@ export default {
 
   effects: {
     *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      const res = yield call(query)
-      yield put({ type: 'save', payload: { stream: res } });
+
+    },
+    *fetchExcel({ payload }, { call, put }) {
+
     },
   },
 
@@ -24,6 +24,10 @@ export default {
     save(state, action) {
       return { ...state, ...action.payload }
     },
+    saveStream(state, action) {
+      const streamCache = state.streamCache
+      Object.entries(action.payload).forEach(it => streamCache[it[0]] = it[1])
+      return { ...state, streamCache }
+    },
   },
-
-};
+}

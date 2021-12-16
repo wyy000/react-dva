@@ -1,39 +1,35 @@
 import React, { useState } from 'react'
 
-import * as LuckyExcel from 'luckyexcel'
+// @ts-ignore
+import LuckyExcel from 'luckyexcel'
 import { ReadOnlyOptions } from "../config/luckysheet"
 
-export const ExcelToLuckySheet: React.FC = (props) => {
+export const ExcelToLuckySheet: React.FC = ({ data, children }) => {
 
   const [state, setState] = useState({})
 
-  const ExealToArray = (e: InputEvent, callback?: () => {}) => {
-    const files = e.target.files
+  LuckyExcel.transformExcelToLucky(data, function(
+    exportJson: { sheets: string | any[] | null; info: { name: any } },
+    luckysheetfile: any
+  ){
+    if(exportJson.sheets === null || exportJson.sheets.length === 0) {
+      return alert("Failed to read the content of the excel file, currently does not support xls files!")
+    }
 
-    LuckyExcel.transformExcelToLucky(files[0], function(exportJson, luckysheetfile){
-      if(exportJson.sheets === null || exportJson.sheets.length === 0) {
-        return alert("Failed to read the content of the excel file, currently does not support xls files!")
-      }
+    const options = {
+      container: 'luckysheet',
+      data: exportJson.sheets,
+      title: exportJson.info.name,
+      // userInfo: exportJson.info.name.creator,
+    }
+    const myOptions = Object.assign(ReadOnlyOptions, options)
+    if (exportJson.sheets.length === 1) myOptions.showsheetbarConfig.menu = false
 
-      const options = {
-        container: 'luckysheet',
-        data: exportJson.sheets,
-        title: exportJson.info.name,
-        // userInfo: exportJson.info.name.creator,
-      }
-      const myOptions = Object.assign(ReadOnlyOptions, options)
-
-      if (exportJson.sheets.length === 1) myOptions.showsheetbarConfig.menu = false
-
-      setState(myOptions)
-    })
-  }
-
-  const { children } = props
+    setState(myOptions)
+  })
 
   return (
     <>
-      <input type='file' onChange={e => ExealToArray(e)} />
       {
         Object.keys(state).length === 0
           ? null
