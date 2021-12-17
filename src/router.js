@@ -17,12 +17,12 @@ function RouterConfig({ app, history }) {
   // })
 
   // @ts-ignore
-  const Exeal = dynamic({
+  const Excel = dynamic({
     app,
     models: () => [
       import('./models/excel'),
     ],
-    component: () => import('./pages/Exeal/index'),
+    component: () => import('./pages/Excel/index'),
   })
 
   return (
@@ -30,7 +30,7 @@ function RouterConfig({ app, history }) {
       <Switch>
         <Route path="/" exact component={IndexPage} />
         {/*<Route path="/login" component={Login} />*/}
-        <Route path="/exeal" component={Exeal} />
+        <Route path="/excel" component={Excel} />
       </Switch>
     </Router>
   )

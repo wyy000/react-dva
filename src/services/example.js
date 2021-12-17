@@ -1,5 +1,5 @@
 import request from '../utils/request'
 
 export function query() {
-  return request('/api/execl/test')
+  return request('/api/excel/test')
 }
